@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk Inlogging</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    
+
+    <header class="hovedheader">
+        <h1>Helpdesk Inlogging</h1>
+    </header>
+
+    <main class="grid">
+
+
+        <section class="card">
+            
+            <h2>Logg inn</h2>
+
+            <input id="login_brukernavn" placeholder="Skriv brukernavn..">
+
+            <input id="login_passord" type="password" placeholder="Skriv passord..">
+
+
+            <button onclick="loggInn()">
+                Logg inn
+            </button>
+
+            <p id="login_feil"></p>
+
+            
+        </section>
+
+
+
+
+
+        <section class="card">
+            <h2>Registrer ny bruker</h2>
+
+            <input id="register_brukernavn" placeholder="Skriv brukernavn..">
+
+            <input id="register_passord" type="password" placeholder="Skriv passord..">
+            
+
+            <button onclick="register()">
+                Registrer
+            </button>
+
+            <p id="register_feil"></p>
+
+
+        </section>
+
+
+    </main>
+
+
+<script>
+
+const API_BASE ="http://127.0.0.1:8000";
+
+
+
+async function loggInn() {
+
+    const brukernavn = document.getElementById("login_brukernavn").value.trim();
+    const passord = document.getElementById("login_passord").value.trim();
+
+    const feil = document.getElementById("login_feil");
+
+    feil.textContent = "";
+
+
+    if (!brukernavn || !passord) {
+        feil.textContent = "Vennligst fyll ut alle felt.";
+        return;
+    }
+
+
+
+    try {
+        const response = await fetch(`${API_BASE}/login`, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({username: brukernavn, password: passord})
+
+        });
+
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            feil.textContent = data.detail
+            return;
+        }
+
+        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("brukernavn", data.username);
+        localStorage.setItem("token", data.role);
+
+        window.location.href = "dashboard.html";
+
+    }
+
+    catch (error) {
+        feil.textContent = "Kunne ikke koble til serveren.";
+    }
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

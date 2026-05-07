@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 20px;
+}
+
+
+
+/* HEADER */
+.hovedheader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hovedheader h1 {
+  font-size: 2rem;
+  color: #15803d;
+  letter-spacing: 0.5px;
+}
+
+
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  max-width: 850px;
+  margin: 40px auto;
+}
+
+
+
+/* CARD */
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+
+  border: 1px solid #e5e7eb;
+}
+
+
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #16a34a;
+}
+
+
+
+/* BUTTON */
+button {
+  padding: 10px;
+  width: 100%;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #16a34a;
+  color: white;
+
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
+
+
+/* FEIL TEKST */
+p {
+  font-size: 13px;
+  color: #dc2626;
+  margin-top: 6px;
+}
