@@ -22,12 +22,12 @@
         <h2>Lag ticket</h2>
 
         <input id="ticket_tittel" placeholder="Tittel på ticket..">
-        <input id="ticket_description" placeholder="Beskrivelse på ticket">
+        <input id="ticket_beskrivelse" placeholder="Beskrivelse på ticket">
 
         <select id="ticket_prioritet">
-            <option value="lav">Lav</option>
-            <option value="Middels">Middels</option>
-            <option value="Hoy">Høy</option>            
+            <option value="low">Lav</option>
+            <option value="medium">Middels</option>
+            <option value="high">Høy</option>            
         </select>
 
 
@@ -41,7 +41,7 @@
 
     <script>
 
-
+const API_BASE = "http://192.168.1.10:8000"
 
 async function createTicket() {
 
@@ -50,12 +50,13 @@ async function createTicket() {
     const prioritet = document.getElementById("ticket_prioritet").value;
 
     const feil = document.getElementById("ticket_feil");
-
+    const user_id = localStorage.getItem("user_id");
+    
     feil.textContent = "";
 
-    const user_id = localStorage.getItem("user_id");
+    
 
-    if (!title || !description) {
+    if (!tittel|| !beskrivelse) {
         feil.textContent = "Fyll ut alle felt.";
         return;
     }
@@ -66,12 +67,7 @@ async function createTicket() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                title: title,
-                description: description,
-                priority: priority,
-                user_id: Number(user_id)
-            })
+            body: JSON.stringify({title: tittel, description: beskrivelse, priority: prioritet, user_id: Number(user_id)})
         });
 
         const data = await response.json();
