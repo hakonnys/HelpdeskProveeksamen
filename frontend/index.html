@@ -214,7 +214,7 @@ async function lagAdmin() {
                 "Content-Type": "application/json"
             },
 
-            body: JSON.stringify({username: brukernavn, password: passord, role: "user" })
+            body: JSON.stringify({username: brukernavn, password: passord, hemmelig_kode: kode })
 
         });
 
