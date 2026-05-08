@@ -108,13 +108,10 @@ async function loggInn() {
 
     feil.textContent = "";
 
-
     if (!brukernavn || !passord) {
         feil.textContent = "Vennligst fyll ut alle felt.";
         return;
     }
-
-
 
     try {
         const response = await fetch(`${API_BASE}/login`, {
@@ -132,10 +129,13 @@ async function loggInn() {
             return;
         }
 
-        feil.style.color = "green";
-        feil.textContent = "Admin Opprettet";
-    }
+        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("brukernavn", data.username);
+        localStorage.setItem("role", data.role);
 
+        window.location.href = "helpdesk.html";
+
+    }
     catch (error) {
         feil.textContent = "Kunne ikke koble til serveren.";
     }
