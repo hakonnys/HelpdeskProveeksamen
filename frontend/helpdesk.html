@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="helpdesk.css">
+</head>
+<body>
+
+
+    <header class="hovedheader">
+        <h1>Helpdesk Hjemmeside</h1>
+    </header>
+
+
+
+
+    <section class="card">
+
+        <h2>Lag ticket</h2>
+
+        <input id="ticket_tittel" placeholder="Tittel på ticket..">
+        <input id="ticket_description" placeholder="Beskrivelse på ticket">
+
+        <select id="ticket_prioritet">
+            <option value="lav">Lav</option>
+            <option value="Middels">Middels</option>
+            <option value="Hoy">Høy</option>            
+        </select>
+
+
+        <button onclick="createTicket()">Lag ticket</button>
+
+        <p id="ticket_feil"></p>
+
+    </section>
+
+
+
+    <script>
+
+
+
+async function createTicket() {
+
+    const tittel = document.getElementById("ticket_tittel").value.trim();
+    const beskrivelse = document.getElementById("ticket_beskrivelse").value.trim();
+    const prioritet = document.getElementById("ticket_prioritet").value;
+
+    const feil = document.getElementById("ticket_feil");
+
+    feil.textContent = "";
+
+    const user_id = localStorage.getItem("user_id");
+
+    if (!title || !description) {
+        feil.textContent = "Fyll ut alle felt.";
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/tickets`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: title,
+                description: description,
+                priority: priority,
+                user_id: Number(user_id)
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            feil.textContent = data.detail;
+            return;
+        }
+
+        feil.style.color = "green";
+        feil.textContent = "Ticket opprettet!";
+    }
+
+    catch (error) {
+        feil.textContent = "Kunne ikke koble til serveren.";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
