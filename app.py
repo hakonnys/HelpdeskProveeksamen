@@ -75,6 +75,12 @@ class TicketCreate(BaseModel):
     user_id: int
 
 
+class RegisterAdmin(BaseModel):
+    username: str
+    password: str
+    hemmelig_kode: str
+
+
 
 def hash_password(password: str):
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -89,6 +95,23 @@ def require_admin(role: str):
         raise HTTPException(status_code=403, detail="Kun admin har tilgang")
 
 
+
+@app.post("/registeradmin")
+def lag_admin(user: RegisterAdmin):
+
+    if user.hemmelig_kode !="hakonerkul":
+        raise HTTPException(status_code=403, detail="Feil hemmelig kode")
+
+    conn = get_db()
+
+    conn.execute(
+        "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
+        (user.username, hash_password(user.password), "admin")
+    )
+
+    conn.commit()
+
+    return {"message": "Admin-bruker opprettet"}
 
 
 
