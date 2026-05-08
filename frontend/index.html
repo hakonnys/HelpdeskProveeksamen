@@ -58,6 +58,38 @@
         </section>
 
 
+
+
+
+        <section class="card">
+            
+            <h2>Registrer ny admin bruker</h2>
+
+            <input id="admin_brukernavn" placeholder="Skriv brukernavn..">
+
+            <input id="admin_passord" type="password" placeholder="Skriv passord..">
+
+            <input id="admin_kode" type="password" placeholder="Skriv hemmelig kode..">
+
+
+
+            <button onclick="lagAdmin()">
+                Registrer
+            </button>
+
+            <p id="admin_feil"></p>
+
+            
+        </section>
+
+
+
+
+
+
+
+
+
     </main>
 
 
@@ -165,6 +197,67 @@ async function register() {
     }
     
 }
+
+
+
+async function lagAdmin() {
+
+    const brukernavn = document.getElementById("admin_brukernavn").value.trim();
+    const passord = document.getElementById("admin_passord").value.trim();
+    const kode = document.getElementById("admin_kode").value.trim();
+
+    const feil = document.getElementById("admin_feil");
+
+    feil.textContent ="";
+
+    if (!brukernavn || !passord || !kode) {
+        feil.textContent = "Fyll ut alle felt.";
+        return;
+    }
+
+
+    try {
+        const response = await fetch(`${API_BASE}/registeradmin`, {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({username: brukernavn, password: passord, role: "user" })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            feil.textContent= data.detail;
+            return;
+        }
+
+        feil.style.color = "green";
+        feil.textContent= "Admin Opprettet"
+    }
+
+    catch (error) {
+        feil.textContent = "Kunne ikke koble til serveren.";
+    }
+
+}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
