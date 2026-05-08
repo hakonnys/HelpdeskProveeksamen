@@ -117,12 +117,12 @@ async function loggInn() {
 
 
     try {
-        const response = await fetch(`${API_BASE}/registeradmin`, {
+        const response = await fetch(`${API_BASE}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({username: brukernavn, password: passord, hemmelig_kode: kode})
+            body: JSON.stringify({username: brukernavn, password: passord})
         });
 
         const data = await response.json();
