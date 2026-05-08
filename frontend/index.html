@@ -121,7 +121,49 @@ async function loggInn() {
 
 
 
+async function register() {
 
+    const brukernavn = document.getElementById("register_brukernavn").value.trim();
+    const passord = document.getElementById("register_passord").value.trim();
+
+    const feil = document.getElementById("register_feil");
+
+    feil.textContent = "";
+
+    if (!brukernavn || !passord) {
+        feil.textContent = "Vennligst fyll ut alle felt,";
+        return
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/login`, {
+
+            method: "POST", 
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({username: brukernavn, passord: passord, role: "user" })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            feil.textContent = data.detail
+            return;
+        }
+
+        feil.style.color = "green";
+        feil.textContent = "Bruker registert"
+
+    }
+
+    catch (error) {
+        feil.textContent = "Kunne ikke koble til serveren.";
+    }
+    
 
 
 
