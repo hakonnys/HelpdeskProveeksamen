@@ -10,6 +10,8 @@ from pydantic import BaseModel, Field
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "helpdesk.db"
 
+print(DB_PATH. resolve())
+
 app = FastAPI(title="Helpdesk")
 app.add_middleware(
     CORSMiddleware,
