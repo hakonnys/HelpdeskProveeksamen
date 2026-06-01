@@ -221,3 +221,14 @@ def close_ticket(ticket_id: int, role: str):
 
 
 
+
+@app.get("/mytickets/{user_id}")
+def get_my_tickets(user_id: int):
+
+    conn = get_db()
+
+    rows = conn.execute("""
+        SELECT * FROM tickets WHERE user_id = ?
+        """, (user_id,)).fetchall()
+
+    return [dict(row) for row in rows]    
