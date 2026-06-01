@@ -231,4 +231,4 @@ def get_my_tickets(user_id: int):
         SELECT * FROM tickets WHERE user_id = ?
         """, (user_id,)).fetchall()
 
-    return [dict(row) for row in rows]    
+    return [dict(row) for row in rows]
