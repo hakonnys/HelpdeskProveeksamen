@@ -1,38 +1,41 @@
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
 .card {
-    margin-bottom: 20px;
+    max-width: 700px;
+    margin: 20px auto;
 }
 
-#ticket_prioritet {
+.ticket_knapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.ticket_knapper button {
+    width: 220px;
+}
+
+#mine_tickets {
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+#mine_tickets .card {
+    margin-bottom: 15px;
+}
+
+select {
     width: 100%;
     padding: 10px;
+    margin-top: 8px;
     margin-bottom: 10px;
 
     border: 1px solid #d1d5db;
     border-radius: 6px;
+
+    font-size: 14px;
 }
 
-button {
-    margin-top: 10px;
-}
-
-#mine_tickets {
-    margin-top: 20px;
-
-    display: grid;
-    gap: 15px;
-}
-
-#admin_tickets_knapp {
-    margin-top: 10px;
-}
-
-.ticket-knapper {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
+body {
+    max-width: 1200px;
+    margin: 0 auto;
 }

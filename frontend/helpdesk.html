@@ -180,12 +180,41 @@ async function hentAlleTickets() {
                 <p>Bruker: ${ticket.username}</p>
                 <p>Status: ${ticket.status}</p>
                 <p>Prioritet: ${ticket.priority}</p>
+
+                ${role === "admin"
+                    ? `<button onclick="deleteTicket(${ticket.id})">❌</button>`
+                    : ""}
+
             </div>
+
         `;
     }
 }
 
 
+
+
+
+async function deleteTicket(id) {
+
+    const role = localStorage.getItem("role");
+
+    const response = await fetch(
+        `${API_BASE}/tickets/${id}?role=${role}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.detail);
+        return;
+    }
+
+    hentAlleTickets();
+}
 
 
 

@@ -232,3 +232,27 @@ def get_my_tickets(user_id: int):
         """, (user_id,)).fetchall()
 
     return [dict(row) for row in rows]
+
+
+
+
+@app.delete("/tickets/{ticket_id}")
+def delete_ticket(ticket_id: int, role: str):
+
+    require_admin(role)
+
+    conn = get_db()
+
+    cursor = conn.execute(
+        "DELETE FROM tickets WHERE id = ?",
+        (ticket_id,)
+    )
+
+    conn.commit()
+
+    if cursor.rowcount == 0:
+        raise HTTPException(status_code=404, detail="Ticket ikke funnet")
+
+    return {"message": "Ticket slettet"}
+
+
