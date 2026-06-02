@@ -58,6 +58,13 @@
 
 
 
+    <button id="admin_tickets_knapp" onclick="hentAlleTickets()" style="display: none;">  
+        Vis Alle Tickets
+    </button>
+
+
+
+
 
 
 
@@ -142,10 +149,41 @@ async function hentMineTickets() {
 
 
 
+const role = localStorage.getItem("role");
 
 
+if (role === "admin") {
+    document.getElementById("admin_tickets_knapp").style.display = "block";
+}
 
 
+async function hentAlleTickets() {
+
+    const role = localStorage.getItem("role");
+
+    const response = await fetch(
+        `${API_BASE}/tickets?role=${role}`
+    );
+
+    const tickets = await response.json()
+
+    const container = document.getElementById("mine_tickets");
+
+    container.innerHTML ="";
+
+    for (const ticket of tickets) {
+
+        container.innerHTML += `
+            <div class= "card">
+                <h3>${ticket.title}</h3>
+                <p>${ticket.description}</p>
+                <p>Bruker: ${ticket.username}</p>
+                <p>Status: ${ticket.status}</p>
+                <p>Prioritet: ${ticket.priority}</p>
+            </div>
+        `;
+    }
+}
 
 
 
