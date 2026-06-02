@@ -1,0 +1,38 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+#ticket_prioritet {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+#mine_tickets {
+    margin-top: 20px;
+
+    display: grid;
+    gap: 15px;
+}
+
+#admin_tickets_knapp {
+    margin-top: 10px;
+}
+
+.ticket-knapper {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
