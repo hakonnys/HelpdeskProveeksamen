@@ -183,10 +183,11 @@ async function hentAlleTickets() {
     for (const ticket of tickets) {
 
         container.innerHTML += `
-            <div class= "card">
+            <div class="card">
                 <h3>${ticket.title}</h3>
                 <p>${ticket.description}</p>
                 <p>Bruker: ${ticket.username}</p>
+                <p>Phone: ${ticket.phone}</p>
                 <p>Status: ${ticket.status}</p>
                 <p>Prioritet: ${ticket.priority}</p>
 

@@ -197,7 +197,7 @@ def get_tickets(role: str):
     conn = get_db()
 
     rows = conn.execute("""
-        SELECT tickets.*, users.username
+        SELECT tickets.*, users.username, users.phone
         FROM tickets
         JOIN users ON tickets.user_id = users.id
     """).fetchall()
