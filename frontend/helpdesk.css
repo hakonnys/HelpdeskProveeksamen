@@ -10,6 +10,8 @@
     margin: 25px 0;
 }
 
+
+
 .ticket_knapper button {
     width: 220px;
 }
@@ -38,4 +40,10 @@ select {
 body {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.logout_button {
+    width: 150px !important;
+    margin: 20px auto;
+    display: block;
 }

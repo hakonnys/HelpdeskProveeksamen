@@ -33,7 +33,8 @@ def init_db():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
-        role TEXT NOT NULL CHECK(role IN ('admin', 'user'))
+        role TEXT NOT NULL CHECK(role IN ('admin', 'user')),
+        phone TEXT NOT NULL
     )
     """)
 
@@ -62,6 +63,7 @@ class UserCreate(BaseModel):
     username: str
     password: str
     role: Literal["admin", "user"]
+    phone: str
 
 
 class UserLogin(BaseModel):
@@ -79,6 +81,7 @@ class RegisterAdmin(BaseModel):
     username: str
     password: str
     hemmelig_kode: str
+    phone: str
 
 
 
@@ -99,14 +102,17 @@ def require_admin(role: str):
 @app.post("/registeradmin")
 def lag_admin(user: RegisterAdmin):
 
-    if user.hemmelig_kode !="hakonerkul":
+    if user.hemmelig_kode != "hakonerkul":
         raise HTTPException(status_code=403, detail="Feil hemmelig kode")
+
+    if not user.phone:
+        raise HTTPException(status_code=400, detail="Telefonnummer er påkrevd")
 
     conn = get_db()
 
     conn.execute(
-        "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
-        (user.username, hash_password(user.password), "admin")
+        "INSERT INTO users (username, password_hash, role, phone) VALUES (?, ?, ?, ?)",
+        (user.username, hash_password(user.password), "admin", user.phone)
     )
 
     conn.commit()
@@ -123,8 +129,8 @@ def register(user: UserCreate):
 
     try:
         conn.execute(
-            "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
-            (user.username, hash_password(user.password), user.role)
+            "INSERT INTO users (username, password_hash, role, phone) VALUES (?, ?, ?, ?)",
+            (user.username, hash_password(user.password), user.role, user.phone)
         )
         conn.commit()
     except sqlite3.IntegrityError:

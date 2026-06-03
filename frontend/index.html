@@ -46,6 +46,8 @@
             <input id="register_brukernavn" placeholder="Skriv brukernavn..">
 
             <input id="register_passord" type="password" placeholder="Skriv passord..">
+
+            <input id="registrer_phone" type="text" placeholder="Skriv mobilnummer...">
             
 
             <button onclick="register()">
@@ -71,7 +73,8 @@
 
             <input id="admin_kode" type="password" placeholder="Skriv hemmelig kode..">
 
-
+            <input id="admin_phone" type="text" placeholder="Skriv mobilnummer...">
+            
 
             <button onclick="lagAdmin()">
                 Registrer
@@ -147,6 +150,7 @@ async function register() {
 
     const brukernavn = document.getElementById("register_brukernavn").value.trim();
     const passord = document.getElementById("register_passord").value.trim();
+    const phone = document.getElementById("registrer_phone").value.trim();
 
     const feil = document.getElementById("register_feil");
 
@@ -166,7 +170,7 @@ async function register() {
                 "Content-Type": "application/json"
             },
 
-            body: JSON.stringify({username: brukernavn, password: passord, role: "user" })
+            body: JSON.stringify({username: brukernavn, password: passord, role: "user", phone: phone })
 
         });
 
@@ -195,6 +199,7 @@ async function lagAdmin() {
     const brukernavn = document.getElementById("admin_brukernavn").value.trim();
     const passord = document.getElementById("admin_passord").value.trim();
     const kode = document.getElementById("admin_kode").value.trim();
+    const phone= document.getElementById("admin_phone").value.trim();
 
     const feil = document.getElementById("admin_feil");
 
@@ -214,7 +219,7 @@ async function lagAdmin() {
                 "Content-Type": "application/json"
             },
 
-            body: JSON.stringify({username: brukernavn, password: passord, hemmelig_kode: kode })
+            body: JSON.stringify({username: brukernavn, password: passord, hemmelig_kode: kode, phone: phone })
 
         });
 
